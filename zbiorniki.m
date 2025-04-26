@@ -31,11 +31,11 @@ clc
 clear
 clc
 clear all
-tauopt=[50 100 130]'/10;
+tauopt=[40 80 130]'/10;
 u=150*[1;0;1];
 x0=ustalony(3);
 xf=ustalony(17);
-W=100*eye(3);
+W=1000*eye(3);
 MDNS=50;
 qh=@(tauopt) cost_fun(tauopt,u,x0,xf,W,MDNS);
 nb=length(tauopt);
