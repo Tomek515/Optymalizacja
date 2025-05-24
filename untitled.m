@@ -1,0 +1,62 @@
+% Wczytanie danych z pliku Excel
+filename = '100hz50.xlsx'; % Zmień na nazwę swojego pliku
+[num, txt, raw] = xlsread(filename); % Wczytaj dane numeryczne, tekstowe i mieszane
+
+% Wydzielenie kolumn
+x1 = num(:, 1) % Kolumna A (pierwszy zestaw danych)
+x2 = num(:, 2); % Kolumna B (drugi zestaw danych)
+x3 = num(:, 3); % Kolumna C (trzeci zestaw danych)
+x4 = num(:, 4); % Kolumna D
+x5 = num(:, 5); % Kolumna E
+x6 = num(:, 6); % Kolumna F
+%x7 = num(:, 7);
+% Tworzenie wektora próbek (numer próbki)
+num_samples = (1:length(x1)); % Liczba próbek (1, 2, 3, ...)
+N = 5000;         % przykład: 5000 próbek
+% Całkowity czas akwizycji
+totalTime = 1500; % [ms]
+N = 5000;       % liczba elementów wektora
+step = 0.3;     % żądany skok wartości
+
+% Wektor od 0 do (N-1)*step, co step
+timeVector = 0 : step : step*(N-1);
+
+% Utworzenie wektora czasu (o długości N), od 0 do totalTime
+
+% Ustalenie układu subplot (3 rzędy, 1 kolumna)
+figure;
+
+% Pierwszy wykres (1 i 4)
+subplot(3, 1, 1); 
+plot(timeVector, x1, 'LineWidth', 1.5, 'DisplayName', 'czujnik 1');
+hold on;
+plot(timeVector, x4, 'LineWidth', 1.5, 'DisplayName', 'czujnik 2');
+hold off;
+title('OŚ X');
+xlabel('Czas [ms]');
+ylabel('m/s^2');
+legend('show');
+grid on;
+
+ % Drugi wykres (2 i 5)
+ subplot(3, 1, 2); 
+ plot(timeVector, x2, 'LineWidth', 1.5, 'DisplayName', 'czujnik 1');
+ hold on;
+ plot(timeVector, x5, 'LineWidth', 1.5, 'DisplayName', 'czujnik 2');
+ hold off;
+ title('OŚ Y');
+xlabel('Czas [ms]');
+ ylabel('m/s^2');
+ legend('show');% grid on;
+ 
+ % Trzeci wykres (3 i 6)
+ subplot(3, 1, 3); 
+ plot(timeVector, x3, 'LineWidth', 1.5, 'DisplayName', 'czujnik 1');
+ hold on;
+ plot(timeVector, x6, 'LineWidth', 1.5, 'DisplayName', 'czujnik 2');
+ hold off;
+ title('OŚ Z');
+ xlabel('Czas [ms]');
+ ylabel('m/s^2');
+ legend('show');
+ grid on;

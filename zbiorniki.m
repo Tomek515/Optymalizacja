@@ -2,40 +2,16 @@
 clear all
 clc
 
-% x0 = ustalony(5);   % stan początkowy
-% 
-% u = 150; %sterowanie
-% 
-% t = 100;      %czas
-% MDNS = 100;    % ilosc krokow calkowania
-% dxx = rhs(50, x0, u) %implementacja równań różniczkowych
-% 
-% [tt, x] = rk4(dxx, u, t, MDNS); %implementacja rk4
-% 
-% plot(tt,x)
-% tau=100 %całkowanie na przedzialach stałości sterowania
-% 
-% [t,x,uk,nseg]=get_tx(tau,u,x0,MDNS)
-
-
-% [xf] = ustalony(3) % wyznaczenie stanu docelowego w zależności od 3 zbiornika
-% W = 1000*eye(3) %macierz wag 
-% tau = 5
-% [g,q]=cost_fun(tau,u,x0,xf,W,MDNS)
-% dp = prhs(50, x0, u) % równania sprzężone 
-% plot(t, x(:, 1), 'r', 'DisplayName', '1'); 
-% hold on;  
-% plot(t, x(:, 2), 'g', 'DisplayName', '2'); 
-% plot(t, x(:, 3), 'b', 'DisplayName', '3');
 
 clear
 clc
 clear all
-tauopt=[40 80 130]'/10;
+%tauopt=[40 80 130]'/10;
+tauopt=[68.0373 114.6129 128.1159]';
 u=150*[1;0;1];
-x0=ustalony(3);
+x0=ustalony(5);
 xf=ustalony(17);
-W=900*eye(3);
+W=1000*eye(3);
 MDNS=50;
 qh=@(tauopt) cost_fun(tauopt,u,x0,xf,W,MDNS);
 nb=length(tauopt);
@@ -67,3 +43,6 @@ h=plot(t,hu);
 grid;set(h,'linewidth',2);
 axis([0 t(end) -1.1 1.1]);
 hold off
+
+
+
