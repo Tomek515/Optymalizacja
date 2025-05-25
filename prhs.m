@@ -43,18 +43,10 @@ function dp = prhs(t, x, u, p)
     c3 = 21; % stała
 
 
-    % if x(1) <= 0
-    %     x(1) = eps;
-    % end
-    % if x(2) <= 0
-    %     x(2) = eps;
-    % end
-    % if (2*R*x(3) - x(3)^2) <= 0
-    %     x(3) = R/2; 
-    % end
+   
 
 
-
+  
 
    
     x1 = x(1);
@@ -63,7 +55,25 @@ function dp = prhs(t, x, u, p)
     p1 = p(1);
     p2 = p(2);
     p3 = p(3);
+     if x1 < 0
+        x1 = 0;
+    end
+    if x2 < 0
+        x2 = 0;
+    end
+    if x3 < 0
+        x3 = 0;
+    end
     
+    if x1 > H
+        x1 = H;
+    end
+    if x2 > H
+        x2 = H;
+    end
+    if x3 > R
+        x3 = R;
+    end
     % dp1
     dp1 = -(4*p1/(35*sqrt(x1)) - (10*p2)/(sqrt(x1)*((69*x2)/20 + 10)));
 
@@ -79,46 +89,3 @@ function dp = prhs(t, x, u, p)
     dp = -[dp1; dp2; dp3];
 end
 
-% function dp = prhs(t, x_val, u_val, p_val)
-%     % Definicja zmiennych symbolicznych
-%     syms x1 x2 x3 u real
-% 
-%     % Stałe
-%     a = 10; % cm
-%     b = 44.5; % cm
-%     c = 25; % cm
-%     w = 3.5; % cm
-%     H = 35; % cm
-%     R = 36.4; % cm
-%     c1 = 20;
-%     c2 = 19;
-%     c3 = 21;
-% 
-%     % Definicja funkcji f1, f2, f3 (prawe strony oryginalnych równań)
-%     f1 = (u - c1 * sqrt(x1)) / (c * w);
-%     f2 = (c1 * sqrt(x1) - c2 * sqrt(x2)) / (w * ((b - a) * x2 / H + a));
-%     f3 = (c2 * sqrt(x2) - c3 * sqrt(x3)) / (w * sqrt(2*R*x3 - x3^2));
-% 
-%     % Wektor funkcji
-%     f = [f1; f2; f3];
-% 
-%     % Zmienna stanu
-%     X = [x1; x2; x3];
-% 
-%     % Liczenie Jacobiego (macierz pochodnych cząstkowych df/dx)
-%     J = jacobian(f, X);
-% 
-%     % Podstawienie wartości rzeczywistych (x_val, u_val)
-%     J_num = double(subs(J, [x1, x2, x3, u], [x_val(1), x_val(2), x_val(3), u_val]));
-% 
-%     % Liczenie dp
-%     dp = J_num.' * p_val; % uwaga: transpozycja, bo dp = (Jacobian)' * p
-% 
-%     % Zwrócenie minus dp
-%     dp = -dp;
-% end
-
-% function dp = prhs(t, x_val, u_val, p_val, jac_func)
-%     J_num = jac_func(x_val, u_val); % szybkie liczenie macierzy Jacobiego
-%     dp = -J_num.' * p_val;          % sprzężone równanie: dp/dt = -Jᵀ * p
-% end

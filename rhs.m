@@ -17,30 +17,29 @@ function dx = rhs(t, x, u)
     %dx2 = (20 * sqrt(x1) - 19 * sqrt(x2)) / (3.45 * x2 + 10);
     %dx3 = (19 * sqrt(x2) - 21 * sqrt(x3)) / (3.45 * sqrt(72.8 * x3 - x3^2));
 
-    % if x1 < 0
-    %     x1 = 0;
-    % end
-    % if x2 < 0
-    %     x2 = 0;
-    % end
-    % if x3 < 0
-    %     x3 = 0;
-    % end
-    % %max wysokosc
-    % if x1 > H
-    %     x1 = H;
-    % end
-    % if x2 > H
-    %     x2 = H;
-    % end
-    % if x3 > R
-    %     x3 = R;
-    % end
+    if x1 < 0
+        x1 = 0;
+    end
+    if x2 < 0
+        x2 = 0;
+    end
+    if x3 < 0
+        x3 = 0;
+    end
+    
+    if x1 > H
+        x1 = H;
+    end
+    if x2 > H
+        x2 = H;
+    end
+    if x3 > R
+        x3 = R;
+    end
 
     dx1 = (u - c1 * sqrt(x1)) / (c*w);
     dx2 = (c1 * sqrt(x1) - c2 * sqrt(x2)) / ((w*((b-a)*x2/H))+a);
     dx3 = (c2 * sqrt(x2) - c3 * sqrt(x3)) / (w * sqrt(2*R * x3 - x3^2));
-    %min wysokosc
 
     dx = [dx1; dx2; dx3];
 end
